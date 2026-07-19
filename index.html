@@ -3,120 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nature Explorer</title>
-    <!-- Modern typography for a premium feel -->
+    <title>Our Promise</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-    <!-- Video Background -->
-    <div class="video-container">
-        <!-- ponytail: Using YouTube Iframe API to force seamless looping and prevent related videos from popping up. -->
-        <div id="bg-video"></div>
-        <div class="video-overlay"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="glass-nav">
-        <div class="logo">Nature.</div>
-        <ul class="nav-links">
-            <li><a href="#explore">Explore</a></li>
-            <li><a href="#ecosystems">Ecosystems</a></li>
-            <li><a href="#resources">Resources</a></li>
-            <li><a href="#communities">Communities</a></li>
-            <li><a href="#conservation">Conservation</a></li>
-        </ul>
+    
+    <!-- Branding / Nav -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">♡</span> PromiseKeeper
+        </div>
+        <div class="nav-links">
+            <a href="#hero">Home</a>
+            <a href="#about">Our Story</a>
+            <a href="#app">The App</a>
+        </div>
     </nav>
 
-    <!-- Main Content -->
-    <main>
-        <section id="explore" class="hero-section">
-            <div class="hero-content glass-card">
-                <h1 class="title">Discover the Wild</h1>
-                <p class="subtitle">Immerse yourself in the breathtaking beauty of the natural world.</p>
-                <button class="glass-btn">Begin Journey</button>
-            </div>
-        </section>
+    <!-- 3D Canvas Background -->
+    <div id="canvas-container"></div>
 
-        <section id="ecosystems" class="ecosystems-section">
-            <h2 class="section-title glass-card">Thriving Ecosystems</h2>
-            <div class="cards-grid">
-                <div class="glass-card ecosystem-card">
-                    <h3>Forests</h3>
-                    <p>The lungs of our planet, teeming with diverse life and towering canopies.</p>
-                </div>
-                <div class="glass-card ecosystem-card">
-                    <h3>Oceans</h3>
-                    <p>Vast and mysterious, regulating climate and hosting incredible marine life.</p>
-                </div>
-                <div class="glass-card ecosystem-card">
-                    <h3>Mountains</h3>
-                    <p>Majestic peaks that touch the sky, harboring unique alpine flora and fauna.</p>
+    <!-- Scrollable Content -->
+    <div id="scroll-content">
+        
+        <!-- Section 1: Hero -->
+        <section class="section section-hero" id="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">A Promise Kept.</h1>
+                <p class="hero-subtitle">Every promise is a milestone in our journey.</p>
+                <button id="btn-start" class="clay-btn primary" style="margin-top: 2rem; font-size: 1.2rem; padding: 1rem 3rem;">Start</button>
+                <div class="scroll-indicator">
+                    <span>↓</span>
                 </div>
             </div>
         </section>
 
-        <section id="resources" class="resources-section">
-            <h2 class="section-title glass-card">Natural Resources</h2>
-            <div class="cards-grid">
-                <div class="glass-card resource-card">
-                    <h3>Water</h3>
-                    <p>The essence of life, covering 71% of our planet's surface.</p>
-                </div>
-                <div class="glass-card resource-card">
-                    <h3>Sunlight</h3>
-                    <p>The ultimate source of energy, powering weather systems and plant growth.</p>
-                </div>
-                <div class="glass-card resource-card">
-                    <h3>Wind</h3>
-                    <p>A powerful, invisible force that shapes landscapes and provides clean energy.</p>
-                </div>
-                <div class="glass-card resource-card">
-                    <h3>Forests</h3>
-                    <p>Vital ecosystems that purify our air and host incredible biodiversity.</p>
-                </div>
-                <div class="glass-card resource-card">
-                    <h3>Soil</h3>
-                    <p>The foundation of terrestrial life, nurturing the flora that sustains us.</p>
-                </div>
-                <div class="glass-card resource-card">
-                    <h3>Minerals</h3>
-                    <p>Earth's building blocks, forming the structural basis of our modern world.</p>
-                </div>
+        <!-- Section 2: About / Next Slide -->
+        <section class="section section-about">
+            <div class="about-content">
+                <h2>Our Story in 3D</h2>
+                <p>Every promise is a milestone. As we journey forward together, we vow to keep our hearts intertwined. This space is dedicated to the little promises we make and keep, forever.</p>
             </div>
         </section>
 
-        <section id="communities" class="communities-section">
-            <h2 class="section-title glass-card">Nature Protecting Communities</h2>
-            <div class="cards-grid">
-                <div class="glass-card resource-card">
-                    <h3>WWF</h3>
-                    <p>World Wildlife Fund works to preserve wilderness and reduce human impact on the environment.</p>
+        <!-- Section 3: The Promise Counter App -->
+        <section class="section section-app" id="app">
+            
+            <!-- Auth View -->
+            <div id="auth-view" class="view active">
+                <div class="clay-card auth-card">
+                    <h2>Promise Counter</h2>
+                    <p>Select your role</p>
+                    
+                    <div id="role-selection" style="display:flex; flex-direction:column; gap:1rem;">
+                        <button class="clay-btn" id="btn-role-devi">I am Devi</button>
+                        <button class="clay-btn" id="btn-role-duo">I am Devi's Duo</button>
+                    </div>
+                    
+                    <div id="auth-inputs" style="display:none;">
+                        <p id="auth-role-label" style="font-weight:600; margin-bottom: 1rem; color: var(--primary);"></p>
+                        <div class="input-group">
+                            <label>Connection Code (Room ID)</label>
+                            <input type="text" id="room-id" placeholder="Enter a code to connect with your partner">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Your Username</label>
+                            <input type="text" id="auth-username" placeholder="Enter your personal username">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label id="password-label">Your Secret Password</label>
+                            <input type="password" id="auth-pass" placeholder="Create or enter password">
+                        </div>
+                        <button id="btn-enter-room" class="clay-btn">Enter Room</button>
+                        <button id="btn-back-role" class="clay-btn secondary" style="margin-top:1rem;">Back</button>
+                    </div>
                 </div>
-                <div class="glass-card resource-card">
-                    <h3>Greenpeace</h3>
-                    <p>An independent global campaigning network acting to change attitudes and behaviors.</p>
-                </div>
-                <div class="glass-card resource-card">
-                    <h3>Nature Conservancy</h3>
-                    <p>Dedicated to conserving the lands and waters on which all life depends globally.</p>
-                </div>
+            </div>
+
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="view">
+                <header class="clay-header">
+                    <h2><span id="current-room"></span></h2>
+                    <div style="display:flex; gap:1rem; flex-wrap: wrap; justify-content: center;">
+                        <button id="btn-show-qr" class="clay-btn small secondary">Connect QR</button>
+                        <button id="btn-new-promise" class="clay-btn small primary">New Promise</button>
+                        <button id="btn-logout" class="clay-btn small danger">Leave Room</button>
+                    </div>
+                </header>
+                
+                <main class="dashboard-content">
+                    <div class="stats-panel clay-card">
+                        <div class="stat"><span class="label">Chl Chl,Kar</span><span class="value pending" id="stat-pending">0</span></div>
+                        <div class="stat"><span class="label">Delulu</span><span class="value kept" id="stat-kept">0</span></div>
+                        <div class="stat"><span class="label">Broken</span><span class="value broken" id="stat-broken">0</span></div>
+                    </div>
+                    
+                    <div id="promises-list" class="promises-grid">
+                        <!-- Promises injected here -->
+                    </div>
+                </main>
             </div>
         </section>
 
-        <section id="conservation" class="conservation-section">
-            <div class="glass-card wide-card">
-                <h2>Protect What Matters</h2>
-                <p>Conservation is not just an option, it is a necessity for the future of all life on Earth.</p>
-            </div>
-        </section>
-    </main>
+    </div>
 
-    <!-- ponytail: GSAP via CDN is one line vs dependency churn -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Modal for QR Code -->
+    <div id="modal-qr" class="modal-overlay">
+        <div class="clay-card modal" style="text-align: center;">
+            <h3>Connect Partner</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom:1rem;">Scan this QR code with the other device.</p>
+            <div id="qr-code-container" style="background: white; padding: 1rem; border-radius: 16px; margin: 0 auto 1.5rem auto; display: inline-block;"></div>
+            <div style="text-align: center;">
+                <button id="btn-close-qr" class="clay-btn small">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for New Promise -->
+    <div id="modal-new-promise" class="modal-overlay">
+        <div class="clay-card modal">
+            <h3>Make a Promise</h3>
+            <div class="input-group">
+                <label>Title / Description</label>
+                <input type="text" id="promise-title" placeholder="What is the promise?">
+            </div>
+            <div class="input-group">
+                <label>Time Limit</label>
+                <select id="promise-time">
+                    <option value="days">Days (7 days)</option>
+                    <option value="weeks">Weeks (4 weeks)</option>
+                    <option value="month">Month (12 months)</option>
+                    <option value="year">Year (5 years)</option>
+                    <option value="lifetime">Lifetime</option>
+                </select>
+            </div>
+            <div class="auth-box">
+                <p>Authorization Required</p>
+                <input type="password" id="auth-my-new" placeholder="Your Secret Password">
+            </div>
+            <div class="modal-actions">
+                <button id="btn-cancel-new" class="clay-btn secondary">Cancel</button>
+                <button id="btn-confirm-new" class="clay-btn">Request to Vow It</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Completing/Breaking Promise -->
+    <div id="modal-action-promise" class="modal-overlay">
+        <div class="clay-card modal">
+            <h3>Update Promise Status</h3>
+            <p id="action-promise-title" style="margin-bottom: 1rem; color: var(--text-muted);"></p>
+            <div class="input-group">
+                <label>Action</label>
+                <select id="promise-action">
+                    <option value="Delulu">Mark as Delulu (Kept)</option>
+                    <option value="Broken">Mark as Broken</option>
+                </select>
+            </div>
+            <div class="auth-box">
+                <p>Authorization Required</p>
+                <input type="password" id="auth-my-action" placeholder="Your Secret Password">
+            </div>
+            <div class="modal-actions">
+                <button id="btn-cancel-action" class="clay-btn secondary">Cancel</button>
+                <button id="btn-confirm-action" class="clay-btn">Request Update</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Incoming Authorization -->
+    <div id="modal-incoming-auth" class="modal-overlay">
+        <div class="clay-card modal">
+            <h3>Partner Request</h3>
+            <p id="incoming-auth-msg" style="margin-bottom: 1rem; color: var(--text-muted);"></p>
+            <div class="auth-box">
+                <p>Approve Request</p>
+                <input type="password" id="auth-incoming-pass" placeholder="Your Secret Password">
+            </div>
+            <div class="modal-actions">
+                <button id="btn-decline-incoming" class="clay-btn secondary danger">Decline</button>
+                <button id="btn-approve-incoming" class="clay-btn">Approve</button>
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="/src/main.js"></script>
 </body>
 </html>

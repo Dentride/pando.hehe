@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 import QRCode from 'qrcode';
-import { loadData, initOrJoinRoom, addPromise, updatePromiseStatus, checkExpirations, addPendingRequest, removePendingRequest, deleteRoom } from './storage.js';
+import { loadData, initOrJoinRoom, addPromise, updatePromiseStatus, checkExpirations, addPendingRequest, removePendingRequest, deleteRoom, listenToRoom } from './storage.js';
 
 let appData = null;
 let selectedRole = null;
@@ -98,28 +98,34 @@ async function enterDashboard() {
         
         renderDashboard();
         checkIncomingRequests();
+        startRealtimeSync(appData.roomId);
         
         gsap.from('.clay-header', { opacity: 0, y: -20, duration: 0.5 });
         gsap.from('.stats-panel', { opacity: 0, scale: 0.9, duration: 0.5, delay: 0.2 });
     }});
 }
 
-// Refresh dashboard every 5 seconds
-setInterval(async () => {
-    if (dashView.classList.contains('active') && appData) {
-        const newData = await loadData(appData.roomId);
-        if (newData && JSON.stringify(newData) !== JSON.stringify(appData)) {
+// Real-time Firebase Sync
+let unsubscribe = null;
+function startRealtimeSync(roomId) {
+    if (unsubscribe) unsubscribe();
+    unsubscribe = listenToRoom(roomId, (newData) => {
+        if (!newData) return; // Room was deleted
+        
+        if (JSON.stringify(newData) !== JSON.stringify(appData)) {
             appData = newData;
             
             const deviName = appData.deviUsername || "Waiting...";
             const duoName = appData.duoUsername || "Waiting...";
             document.getElementById('current-room').textContent = `Devi: ${deviName} | Duo: ${duoName}`;
             
-            renderDashboard();
-            checkIncomingRequests();
+            if (dashView.classList.contains('active')) {
+                renderDashboard();
+                checkIncomingRequests();
+            }
         }
-    }
-}, 5000);
+    });
+}
 
 document.getElementById('btn-delete-room').addEventListener('click', async () => {
     const pass = window.prompt("WARNING: This will permanently delete this room and all your promises. Enter your secret password to confirm:");

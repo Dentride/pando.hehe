@@ -1,23 +1,42 @@
-const API_URL = `http://${window.location.hostname}:3000/room`;
+import { initializeApp } from 'firebase/app';
+import { getFirestore, doc, getDoc, setDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCVUlvRP6kzeZd5Mq7dn8Ocx-r5OuTlZG4",
+  authDomain: "promise-manager.firebaseapp.com",
+  projectId: "promise-manager",
+  storageBucket: "promise-manager.firebasestorage.app",
+  messagingSenderId: "1033389781995",
+  appId: "1:1033389781995:web:1e78e46e46c618c1649fae"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// -----------------------------------------------------------------
+// DATABASE CRUD OPERATIONS
+// -----------------------------------------------------------------
 
 export async function loadData(roomId) {
     if (!roomId) return null;
     try {
-        const res = await fetch(`${API_URL}/${roomId}`);
-        if (!res.ok) return null;
-        return await res.json();
+        const docRef = doc(db, 'rooms', roomId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            return docSnap.data();
+        }
+        return null;
     } catch (e) {
+        console.error("Error loading data:", e);
         return null;
     }
 }
 
 export async function saveData(roomId, data) {
     try {
-        await fetch(`${API_URL}/${roomId}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
+        const docRef = doc(db, 'rooms', roomId);
+        await setDoc(docRef, data);
     } catch (e) {
         console.error("Save failed", e);
     }
@@ -25,18 +44,32 @@ export async function saveData(roomId, data) {
 
 export async function deleteRoom(roomId) {
     try {
-        await fetch(`${API_URL}/${roomId}`, {
-            method: 'DELETE'
-        });
+        const docRef = doc(db, 'rooms', roomId);
+        await deleteDoc(docRef);
     } catch (e) {
         console.error("Delete failed", e);
     }
 }
 
+// REAL-TIME LISTENER
+export function listenToRoom(roomId, callback) {
+    const docRef = doc(db, 'rooms', roomId);
+    return onSnapshot(docRef, (docSnap) => {
+        if (docSnap.exists()) {
+            callback(docSnap.data());
+        } else {
+            callback(null);
+        }
+    });
+}
+
+// -----------------------------------------------------------------
+// ROOM LOGIC
+// -----------------------------------------------------------------
+
 export async function initOrJoinRoom(roomId, role, password, username) {
     let data = await loadData(roomId);
     if (!data) {
-        // Create new room
         data = {
             roomId,
             deviPassword: role === 'devi' ? password : null,
@@ -47,13 +80,12 @@ export async function initOrJoinRoom(roomId, role, password, username) {
             pendingRequests: []
         };
     } else {
-        // Join existing room
         if (role === 'devi') {
             if (!data.deviPassword) {
                 data.deviPassword = password;
                 data.deviUsername = username;
             } else if (data.deviPassword === password) {
-                data.deviUsername = username; // Update username on subsequent logins
+                data.deviUsername = username;
             }
         }
         if (role === 'duo') {
@@ -61,7 +93,7 @@ export async function initOrJoinRoom(roomId, role, password, username) {
                 data.duoPassword = password;
                 data.duoUsername = username;
             } else if (data.duoPassword === password) {
-                data.duoUsername = username; // Update username on subsequent logins
+                data.duoUsername = username;
             }
         }
         if (!data.pendingRequests) {

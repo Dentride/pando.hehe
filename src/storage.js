@@ -84,7 +84,9 @@ export async function initOrJoinRoom(roomId, role, password, username) {
             if (!data.deviPassword) {
                 data.deviPassword = password;
                 data.deviUsername = username;
-            } else if (data.deviPassword === password) {
+            } else if (data.deviPassword !== password) {
+                throw new Error("Incorrect Password for Devi!");
+            } else {
                 data.deviUsername = username;
             }
         }
@@ -92,7 +94,9 @@ export async function initOrJoinRoom(roomId, role, password, username) {
             if (!data.duoPassword) {
                 data.duoPassword = password;
                 data.duoUsername = username;
-            } else if (data.duoPassword === password) {
+            } else if (data.duoPassword !== password) {
+                throw new Error("Incorrect Password for Duo!");
+            } else {
                 data.duoUsername = username;
             }
         }

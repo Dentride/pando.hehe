@@ -62,7 +62,7 @@ function selectRole(role) {
     gsap.from(authInputs, { opacity: 0, y: 10, duration: 0.3 });
 }
 
-document.getElementById('btn-enter-room').addEventListener('click', async () => {
+document.getElementById('btn-enter-room').addEventListener('click', async (e) => {
     const roomId = inputRoomId.value.trim();
     const pass = inputPass.value;
     const username = document.getElementById('auth-username').value.trim();
@@ -72,16 +72,36 @@ document.getElementById('btn-enter-room').addEventListener('click', async () => 
         return;
     }
 
-    appData = await initOrJoinRoom(roomId, selectedRole, pass, username);
-    localStorage.setItem('last_room', roomId);
-    localStorage.setItem('last_role', selectedRole);
-    savedRole = selectedRole; 
-    
-    enterDashboard();
+    const btn = e.target;
+    const originalText = btn.textContent;
+    btn.textContent = "Connecting...";
+    btn.disabled = true;
 
-    // Spontaneously show QR code if the other user hasn't joined yet
-    if (!appData.deviPassword || !appData.duoPassword) {
-        setTimeout(showQrModal, 800);
+    try {
+        // Race the database call against an 8-second timeout in case Firebase hangs
+        appData = await Promise.race([
+            initOrJoinRoom(roomId, selectedRole, pass, username),
+            new Promise((_, reject) => setTimeout(() => reject(new Error("TIMEOUT")), 8000))
+        ]);
+
+        localStorage.setItem('last_room', roomId);
+        localStorage.setItem('last_role', selectedRole);
+        savedRole = selectedRole; 
+        
+        enterDashboard();
+
+        // Spontaneously show QR code if the other user hasn't joined yet
+        if (!appData.deviPassword || !appData.duoPassword) {
+            setTimeout(showQrModal, 800);
+        }
+    } catch (err) {
+        if (err.message === "TIMEOUT") {
+            alert("Connection timed out. Did you create the Firestore Database in your Firebase console?");
+        } else {
+            alert(err.message || "An error occurred while connecting.");
+        }
+        btn.textContent = originalText;
+        btn.disabled = false;
     }
 });
 

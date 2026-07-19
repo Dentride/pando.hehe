@@ -108,8 +108,8 @@ export function initScene() {
     
     // We animate the heartMesh directly so it doesn't fight with the heartGroup's floating logic
     gsap.to(heartMesh.position, {
-        x: isMobile ? 1 : 2, // Shift Right (smaller shift on mobile)
-        y: isMobile ? -1.5 : -0.5, // Shift Down
+        x: isMobile ? 1 : 2, // Shift Right
+        y: isMobile ? -1.5 : -0.5,
         ease: "none",
         scrollTrigger: {
             trigger: ".section-about",
@@ -120,25 +120,48 @@ export function initScene() {
     });
 
     gsap.to(heartMesh.rotation, {
-        y: Math.PI * 2, // Exactly one full 360 degree rotation
+        y: Math.PI * 2,
         ease: "none",
-        scrollTrigger: {
-            trigger: ".section-about",
-            start: "top bottom",
-            end: "center center",
-            scrub: 1,
-        }
+        scrollTrigger: { trigger: ".section-about", start: "top bottom", end: "center center", scrub: 1 }
     });
 
-    // Reset rotation past Section 2
+    // Animate across "How It Works"
     gsap.to(heartMesh.position, {
-        y: 3, // Move it up and out of the way for the App section
+        x: isMobile ? -1 : -2, // Shift Left
+        y: isMobile ? -2.5 : -1,
+        ease: "none",
+        scrollTrigger: { trigger: ".section-how-it-works", start: "top bottom", end: "center center", scrub: 1 }
+    });
+    
+    gsap.to(heartMesh.rotation, {
+        y: Math.PI * 4,
+        ease: "none",
+        scrollTrigger: { trigger: ".section-how-it-works", start: "top bottom", end: "center center", scrub: 1 }
+    });
+
+    // Animate across "Features"
+    gsap.to(heartMesh.position, {
+        x: isMobile ? 1 : 2, // Shift Right
+        y: isMobile ? -3.5 : -1.5,
+        ease: "none",
+        scrollTrigger: { trigger: ".section-features", start: "top bottom", end: "center center", scrub: 1 }
+    });
+    
+    gsap.to(heartMesh.rotation, {
+        y: Math.PI * 6,
+        ease: "none",
+        scrollTrigger: { trigger: ".section-features", start: "top bottom", end: "center center", scrub: 1 }
+    });
+
+    // Reset rotation past Features and hide it
+    gsap.to(heartMesh.position, {
+        y: 3, 
         opacity: 0,
         ease: "power2.in",
         scrollTrigger: {
-            trigger: ".section-app",
-            start: "top bottom",
-            end: "top center",
+            trigger: ".section-features",
+            start: "bottom bottom", // Hide when at the bottom of features
+            end: "bottom center",
             scrub: 1,
         }
     });

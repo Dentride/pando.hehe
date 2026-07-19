@@ -19,7 +19,9 @@
         <div class="nav-links">
             <a href="#hero">Home</a>
             <a href="#about">Our Story</a>
-            <a href="#app">The App</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#features">Features</a>
+            <a href="/app.html" style="font-weight: bold; color: var(--primary);">Open App</a>
         </div>
     </nav>
 
@@ -42,155 +44,81 @@
         </section>
 
         <!-- Section 2: About / Next Slide -->
-        <section class="section section-about">
-            <div class="about-content">
+        <section class="section section-about" id="about">
+            <div class="about-content scroll-reveal">
                 <h2>Our Story in 3D</h2>
                 <p>Every promise is a milestone. As we journey forward together, we vow to keep our hearts intertwined. This space is dedicated to the little promises we make and keep, forever.</p>
             </div>
         </section>
 
-        <!-- Section 3: The Promise Counter App -->
-        <section class="section section-app" id="app">
-            
-            <!-- Auth View -->
-            <div id="auth-view" class="view active">
-                <div class="clay-card auth-card">
-                    <h2>Promise Counter</h2>
-                    <p>Select your role</p>
-                    
-                    <div id="role-selection" style="display:flex; flex-direction:column; gap:1rem;">
-                        <button class="clay-btn" id="btn-role-devi">I am Devi</button>
-                        <button class="clay-btn" id="btn-role-duo">I am Devi's Duo</button>
+        <!-- Section 3: How It Works -->
+        <section class="section section-how-it-works" id="how-it-works">
+            <div class="content-wrapper">
+                <h2 class="section-title scroll-reveal">How It Works</h2>
+                <div class="cards-grid">
+                    <div class="clay-card step-card scroll-reveal">
+                        <div class="card-icon">🔗</div>
+                        <h3>1. Connect</h3>
+                        <p>Create a room and securely pair with your partner using a unique Connection Code or QR scan.</p>
                     </div>
-                    
-                    <div id="auth-inputs" style="display:none;">
-                        <p id="auth-role-label" style="font-weight:600; margin-bottom: 1rem; color: var(--primary);"></p>
-                        <div class="input-group">
-                            <label>Connection Code (Room ID)</label>
-                            <input type="text" id="room-id" placeholder="Enter a code to connect with your partner">
-                        </div>
-                        
-                        <div class="input-group">
-                            <label>Your Username</label>
-                            <input type="text" id="auth-username" placeholder="Enter your personal username">
-                        </div>
-                        
-                        <div class="input-group">
-                            <label id="password-label">Your Secret Password</label>
-                            <input type="password" id="auth-pass" placeholder="Create or enter password">
-                        </div>
-                        <button id="btn-enter-room" class="clay-btn">Enter Room</button>
-                        <button id="btn-back-role" class="clay-btn secondary" style="margin-top:1rem;">Back</button>
+                    <div class="clay-card step-card scroll-reveal">
+                        <div class="card-icon">💌</div>
+                        <h3>2. Promise</h3>
+                        <p>Make a promise. Set a time limit. Your partner must authorize the vow before it becomes official.</p>
+                    </div>
+                    <div class="clay-card step-card scroll-reveal">
+                        <div class="card-icon">✨</div>
+                        <h3>3. Fulfill</h3>
+                        <p>Mark promises as Kept (Delulu) or Broken. Keep track of your milestones together.</p>
+                    </div>
+                    <div class="clay-card step-card scroll-reveal">
+                        <div class="card-icon">🎉</div>
+                        <h3>4. Celebrate</h3>
+                        <p>Look back at a beautiful timeline of all the promises you've fulfilled for each other.</p>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Dashboard View -->
-            <div id="dashboard-view" class="view">
-                <header class="clay-header">
-                    <h2><span id="current-room"></span></h2>
-                    <div style="display:flex; gap:1rem; flex-wrap: wrap; justify-content: center;">
-                        <button id="btn-show-qr" class="clay-btn small secondary">Connect QR</button>
-                        <button id="btn-new-promise" class="clay-btn small primary">New Promise</button>
-                        <button id="btn-logout" class="clay-btn small danger">Leave Room</button>
+        <!-- Section 4: Features -->
+        <section class="section section-features" id="features">
+            <div class="content-wrapper">
+                <h2 class="section-title scroll-reveal">Features</h2>
+                <div class="cards-grid">
+                    <div class="clay-card feature-card scroll-reveal">
+                        <h3>🔒 Secure Authentication</h3>
+                        <p>Dual-password protection ensures only you and your partner can update your promises.</p>
                     </div>
-                </header>
-                
-                <main class="dashboard-content">
-                    <div class="stats-panel clay-card">
-                        <div class="stat"><span class="label">Chl Chl,Kar</span><span class="value pending" id="stat-pending">0</span></div>
-                        <div class="stat"><span class="label">Delulu</span><span class="value kept" id="stat-kept">0</span></div>
-                        <div class="stat"><span class="label">Broken</span><span class="value broken" id="stat-broken">0</span></div>
+                    <div class="clay-card feature-card scroll-reveal">
+                        <h3>📱 Cross-Device Realtime</h3>
+                        <p>Instant synchronization. When one partner makes a vow, the other gets a live prompt to approve it.</p>
                     </div>
-                    
-                    <div id="promises-list" class="promises-grid">
-                        <!-- Promises injected here -->
+                    <div class="clay-card feature-card scroll-reveal">
+                        <h3>⏳ Timed Vows</h3>
+                        <p>Promises automatically expire and break if they aren't fulfilled within your chosen timeframe.</p>
                     </div>
-                </main>
+                    <div class="clay-card feature-card scroll-reveal">
+                        <h3>🎨 Romantic 3D UI</h3>
+                        <p>Immersive, highly animated glassmorphism and claymorphism aesthetic.</p>
+                    </div>
+                    <div class="clay-card feature-card scroll-reveal">
+                        <h3>🔔 Instant Notifications</h3>
+                        <p>Get visual prompts exactly when your partner interacts with your shared room.</p>
+                    </div>
+                    <div class="clay-card feature-card scroll-reveal">
+                        <h3>☁️ Cloud Synced</h3>
+                        <p>All your data is saved automatically. Access your promises from anywhere.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
     </div>
 
-    <!-- Modal for QR Code -->
-    <div id="modal-qr" class="modal-overlay">
-        <div class="clay-card modal" style="text-align: center;">
-            <h3>Connect Partner</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom:1rem;">Scan this QR code with the other device.</p>
-            <div id="qr-code-container" style="background: white; padding: 1rem; border-radius: 16px; margin: 0 auto 1.5rem auto; display: inline-block;"></div>
-            <div style="text-align: center;">
-                <button id="btn-close-qr" class="clay-btn small">Done</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal for New Promise -->
-    <div id="modal-new-promise" class="modal-overlay">
-        <div class="clay-card modal">
-            <h3>Make a Promise</h3>
-            <div class="input-group">
-                <label>Title / Description</label>
-                <input type="text" id="promise-title" placeholder="What is the promise?">
-            </div>
-            <div class="input-group">
-                <label>Time Limit</label>
-                <select id="promise-time">
-                    <option value="days">Days (7 days)</option>
-                    <option value="weeks">Weeks (4 weeks)</option>
-                    <option value="month">Month (12 months)</option>
-                    <option value="year">Year (5 years)</option>
-                    <option value="lifetime">Lifetime</option>
-                </select>
-            </div>
-            <div class="auth-box">
-                <p>Authorization Required</p>
-                <input type="password" id="auth-my-new" placeholder="Your Secret Password">
-            </div>
-            <div class="modal-actions">
-                <button id="btn-cancel-new" class="clay-btn secondary">Cancel</button>
-                <button id="btn-confirm-new" class="clay-btn">Request to Vow It</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal for Completing/Breaking Promise -->
-    <div id="modal-action-promise" class="modal-overlay">
-        <div class="clay-card modal">
-            <h3>Update Promise Status</h3>
-            <p id="action-promise-title" style="margin-bottom: 1rem; color: var(--text-muted);"></p>
-            <div class="input-group">
-                <label>Action</label>
-                <select id="promise-action">
-                    <option value="Delulu">Mark as Delulu (Kept)</option>
-                    <option value="Broken">Mark as Broken</option>
-                </select>
-            </div>
-            <div class="auth-box">
-                <p>Authorization Required</p>
-                <input type="password" id="auth-my-action" placeholder="Your Secret Password">
-            </div>
-            <div class="modal-actions">
-                <button id="btn-cancel-action" class="clay-btn secondary">Cancel</button>
-                <button id="btn-confirm-action" class="clay-btn">Request Update</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal for Incoming Authorization -->
-    <div id="modal-incoming-auth" class="modal-overlay">
-        <div class="clay-card modal">
-            <h3>Partner Request</h3>
-            <p id="incoming-auth-msg" style="margin-bottom: 1rem; color: var(--text-muted);"></p>
-            <div class="auth-box">
-                <p>Approve Request</p>
-                <input type="password" id="auth-incoming-pass" placeholder="Your Secret Password">
-            </div>
-            <div class="modal-actions">
-                <button id="btn-decline-incoming" class="clay-btn secondary danger">Decline</button>
-                <button id="btn-approve-incoming" class="clay-btn">Approve</button>
-            </div>
-        </div>
-    </div>
+    <!-- Extra decorative elements -->
+    <div class="scroll-reveal" style="position: absolute; top: 180vh; left: 10%; font-size: 4rem; opacity: 0.1;">❤️</div>
+    <div class="scroll-reveal" style="position: absolute; top: 250vh; right: 15%; font-size: 5rem; opacity: 0.1;">✨</div>
+    <div class="scroll-reveal" style="position: absolute; top: 320vh; left: 20%; font-size: 3rem; opacity: 0.1;">💌</div>
 
     <script type="module" src="/src/main.js"></script>
 </body>

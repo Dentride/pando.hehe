@@ -23,6 +23,16 @@ export async function saveData(roomId, data) {
     }
 }
 
+export async function deleteRoom(roomId) {
+    try {
+        await fetch(`${API_URL}/${roomId}`, {
+            method: 'DELETE'
+        });
+    } catch (e) {
+        console.error("Delete failed", e);
+    }
+}
+
 export async function initOrJoinRoom(roomId, role, password, username) {
     let data = await loadData(roomId);
     if (!data) {

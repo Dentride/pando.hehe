@@ -37,6 +37,17 @@ app.post('/room/:id', (req, res) => {
     res.json({ success: true });
 });
 
+app.delete('/room/:id', (req, res) => {
+    const db = getDb();
+    if (db[req.params.id]) {
+        delete db[req.params.id];
+        saveDb(db);
+        res.json({ success: true });
+    } else {
+        res.status(404).json({ error: "Room not found" });
+    }
+});
+
 app.listen(3000, '0.0.0.0', () => {
     console.log("Backend running on port 3000");
 });

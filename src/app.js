@@ -199,7 +199,7 @@ function closeIncomingModal() {
 // QR Logic
 async function showQrModal() {
     const roleToInvite = savedRole === 'devi' ? 'duo' : 'devi';
-    const link = `http://${window.location.hostname}:5173/app.html?room=${appData.roomId}&role=${roleToInvite}`;
+    const link = `${window.location.origin}/app.html?room=${appData.roomId}&role=${roleToInvite}`;
     
     const container = document.getElementById('qr-code-container');
     container.innerHTML = 'Generating...';
